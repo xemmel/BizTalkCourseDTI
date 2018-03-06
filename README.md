@@ -4,7 +4,7 @@
 1. [Restart BizTalk](#powershell-restart-biztalk)
 5. [Promotion](#promotion)
 6. [Pipeline](#pipeline)
-7. (Flat Files)(#flat-files)
+7. [Flat Files](#flat-files)
 
 ## Powershell Restart BizTalk
 
