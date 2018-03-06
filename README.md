@@ -64,4 +64,13 @@ OL:20;60
             Quantity
 
 5. Validate your sample document with the schema (see that you get correct xml)
-6. Create a new Receive Pipeline
+6. Create a new Receive Pipeline (ReceiveFFOrder)
+7. Use the **FFDisassembler**
+8. Try to build, you will get an error
+9. Set the document Schema on the FFDisassembler to the FF schema you created before.
+10. Deploy
+11. Create a new *Receive Location* on the same Receive Port you have used before (make sure that you have a *Send Port* that subscribes to all messages from the Receive Port). ([Name of your ReceivePort].FFOrder) Mask: *.txt
+12. Use your new Pipeline on the new *Receive Location*
+13. Submit a FF order through the new Receive Location. See that you get an *XML* document in your *Send Port*
+
+[Back to top](#table-of-content)
