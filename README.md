@@ -1,6 +1,9 @@
-## Teknologisk BizTalk Course March 2018
+# Teknologisk BizTalk Course March 2018
 
-
+##Table of content
+1. [Restart BizTalk](#powershell-restart-biztalk)
+5. [Promotion](#promotion)
+6. [Pipeline](#pipeline)
 
 ## Powershell Restart BizTalk
 
@@ -19,6 +22,8 @@ get-service -name "BTS*" | restart-service
     <Amount>1000</Amount>
 </LoanApp>
 ```
+
+[Back to top](#table-of content)
 
 ## Pipeline
 
