@@ -1,6 +1,7 @@
 ## Teknologisk BizTalk Course March 2018
 
 
+
 ## Powershell Restart BizTalk
 
 ```powershell
@@ -18,3 +19,12 @@ get-service -name "BTS*" | restart-service
     <Amount>1000</Amount>
 </LoanApp>
 ```
+
+## Pipeline
+
+- Create a new Project (VS) Kursus.Common.Pipelines (Remember to Sign and specify the correct BizTalk Application) (Kursus.Common)
+- Create a new Receive Pipeline inside the Project (ReceiveXMLValidate)
+- Use the _XMLDisassembler_ and the _XMLValidate_ Pipeline Components in the correct stages (Disassemble, Validate)
+- Deploy
+- Use the Pipeline (Remember to reference the common Application) in your existing *Receive Location*, make an validating error in your sample xml document (validation error, it still needs to be valid xml).
+- Test that your new Pipeline validates and fails when an invalid document is submitted
