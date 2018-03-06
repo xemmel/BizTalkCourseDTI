@@ -60,7 +60,7 @@ OL:20;60
        OrderHeader (Infix, Char delimiter ;)
             OrderID
             Customer
-        OrderLine (Infix, Hex delimiter 0x0D 0x0A  Tag Identifier: OL:)
+        OrderLine (Infix, Char delimiter ;  Tag Identifier: OL:)
             ItemNo
             Quantity
 ```
