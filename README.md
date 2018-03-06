@@ -56,8 +56,8 @@ OL:20;60
 3. Create a new Flat file schema inside your new Project
 4. Create the following structure:
 ```
-     Order (Infix, Hex delimiter 0x0D 0x0A)
-       OrderHeader (Postfix, Char delimiter ;)
+     Order (Postfix, Hex delimiter 0x0D 0x0A)
+       OrderHeader (Infix, Char delimiter ;)
             OrderID
             Customer
         OrderLine (Infix, Hex delimiter 0x0D 0x0A  Tag Identifier: OL:)
