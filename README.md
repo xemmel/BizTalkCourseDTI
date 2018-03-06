@@ -55,14 +55,15 @@ OL:20;60
 2. Create a sample document (order.txt) from the sample above
 3. Create a new Flat file schema inside your new Project
 4. Create the following structure:
-    Order (Infix, Hex delimiter 0x0D 0x0A)
-        OrderHeader (Infix, Char delimiter ;)
+```
+     Order (Infix, Hex delimiter 0x0D 0x0A)
+       OrderHeader (Postfix, Char delimiter ;)
             OrderID
             Customer
         OrderLine (Infix, Hex delimiter 0x0D 0x0A  Tag Identifier: OL:)
             ItemNo
             Quantity
-
+```
 5. Validate your sample document with the schema (see that you get correct xml)
 6. Create a new Receive Pipeline (ReceiveFFOrder)
 7. Use the **FFDisassembler**
