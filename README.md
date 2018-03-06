@@ -1,6 +1,12 @@
 ## Teknologisk BizTalk Course March 2018
 
 
+## Powershell Restart BizTalk
+
+```powershell
+get-service -name "BTS*" | restart-service
+```
+
 
 
 ### Promotion
