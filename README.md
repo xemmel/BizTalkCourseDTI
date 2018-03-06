@@ -23,7 +23,7 @@ get-service -name "BTS*" | restart-service
 </LoanApp>
 ```
 
-[Back to top](#table-of content)
+[Back to top](#table-of-content)
 
 ## Pipeline
 
