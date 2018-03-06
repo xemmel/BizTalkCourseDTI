@@ -1,9 +1,10 @@
 # Teknologisk BizTalk Course March 2018
 
-##Table of content
+## Table of content
 1. [Restart BizTalk](#powershell-restart-biztalk)
 5. [Promotion](#promotion)
 6. [Pipeline](#pipeline)
+7. (Flat Files)(#flat-files)
 
 ## Powershell Restart BizTalk
 
@@ -33,3 +34,19 @@ get-service -name "BTS*" | restart-service
 - Deploy
 - Use the Pipeline (Remember to reference the common Application) in your existing *Receive Location*, make an validating error in your sample xml document (validation error, it still needs to be valid xml).
 - Test that your new Pipeline validates and fails when an invalid document is submitted
+
+[Back to top](#table-of-content)
+
+## Flat files
+
+
+### Sample
+
+```
+1002;MS
+OL:400;40
+OL:20;60
+
+```
+
+[Back to top](#table-of-content)
