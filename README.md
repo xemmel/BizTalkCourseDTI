@@ -209,6 +209,94 @@ In this example only Order is given the namespace applied
 
 
 > Document 1, 3 and 5 are identical
+
 > Document 2 and 4 are identical
 
 [Back to top](#table-of-content)
+
+
+### Custom XSLT example
+
+```xml
+
+<?xml version="1.0" encoding="UTF-16"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
+                xmlns:var="http://schemas.microsoft.com/BizTalk/2003/var" exclude-result-prefixes="msxsl var cust userCSharp" 
+                version="1.0" 
+                xmlns:cust="http://customer.dk/schema" 
+                xmlns:int="http://dti.dk/schemas/v10" 
+                xmlns:userCSharp="http://schemas.microsoft.com/BizTalk/2003/userCSharp">
+  <xsl:output omit-xml-declaration="yes" method="xml" version="1.0" />
+  <xsl:template match="/">
+    <xsl:apply-templates select="/cust:Order" />
+  </xsl:template>
+  <xsl:template match="/cust:Order">
+    <int:Order>
+      <int:ID>
+        <xsl:value-of select="OrderID" />
+      </int:ID>
+      <int:Customer>
+        <xsl:text>DS</xsl:text>
+      </int:Customer>
+      <int:OrderDate>
+        <xsl:value-of select="userCSharp:DateCurrentDate()"/>
+      </int:OrderDate>
+      <int:Desc>
+        <xsl:value-of select="Description"/>
+      </int:Desc>
+      <xsl:for-each select="OrderLine">
+        <int:Line>
+          <xsl:attribute name="no">
+            <xsl:value-of select="position()" />
+          </xsl:attribute>
+          <int:ItemNo>
+            <xsl:value-of select="ItemNumber" />
+          </int:ItemNo>
+          <int:Qty>
+            <xsl:value-of select="Quantity"/>
+          </int:Qty>
+          <!--"Heavy" if Quantity is greater than 1000, otherwise "Not heavy"-->
+          <int:Desc>
+            <xsl:choose>
+              <xsl:when test="Quantity > 1000">
+                <xsl:text>Heavy</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>Not heavy</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </int:Desc>
+        </int:Line>
+      </xsl:for-each>
+    </int:Order>
+  </xsl:template>
+  <msxsl:script language="C#" implements-prefix="userCSharp"><![CDATA[
+
+
+
+public string DateCurrentDate()
+{
+	DateTime dt = DateTime.Now;
+	return dt.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+}
+
+
+]]></msxsl:script>
+</xsl:stylesheet>
+
+```
+
+### Generate Schema from sample XML*
+
+> Make sure that you run *InstallWFX.vbs* once on each developer machine
+
+```powershell
+
+C:\Program Files (x86)\Microsoft BizTalk Server 2016\sdk\Utilities\Schema Generator\InstallWFX.vbs
+
+```
+
+Right click on BizTalk Project (VS)
+
+Add Generated Items>Generate Schemas>Well Formed XML 
+
