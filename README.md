@@ -6,7 +6,7 @@
 6. [Pipeline](#pipeline)
 7. [Flat Files](#flat-files)
 8. [Debatch](#debatch)
-
+9. [Notes](#notes)
 ## Powershell Restart BizTalk
 
 ```powershell
@@ -110,8 +110,8 @@ OL:20;60
 
 1. Make a new Project (Kursus.Debatch) and do what is needed!!!
 2. Make a new Schema with root element: Batch and namespace http://dti.dk
-3. set Envelope to true
-4. Set Body X-Path to Batch
+3. set Envelope to yes (Click on <Schema> and choose Envelope from Properties)
+4. Set Body X-Path to Batch (Click on root element, and select **Body XPath** choose Batch and click ok)
 5. Deploy Schema
 6. Make sure that the actual messages inside the Batch message is valid messages according to your schema(s)
 7. Submit the batch and verify that several messages are send to your Send Port
@@ -120,5 +120,35 @@ OL:20;60
 10. Verify that the whole batch is suspended
 11. Change the Receive Pipeline properties on the *Receive Location* (RecoverableInterchangeProcessing = True)
 12. Submit again and verify that you now get two messages out and one suspended message
+
+[Back to top](#table-of-content)
+
+## Notes
+
+### Namespaces
+
+**Default namespace**
+> Namespace is applied to all elements where nothing else is defined
+
+```xml
+<Order xmlns="http://namespace">
+	<ID>1000</ID>
+</Order>
+
+```
+
+In this example both Order and ID gets the namespace applied
+
+**Namespace prefix**
+> Namespace is applied only to elements where the prefix is applied
+
+```xml
+<aa:Order xmlns:aa="http://namespace">
+	<ID>1000</ID>
+</aa:Order>
+
+```
+
+In this example only Order is given the namespace applied
 
 [Back to top](#table-of-content)
