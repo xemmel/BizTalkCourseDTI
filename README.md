@@ -40,6 +40,9 @@ get-service -name "BTS*" | restart-service
 
 ## Flat files
 
+> For each Record you need to ask yourself the following:
+- What are the children delimited by?
+- Is it *infix* (a,b,c) or *postfix* (a,b,c,)
 
 ### Sample
 
@@ -286,7 +289,7 @@ public string DateCurrentDate()
 
 ```
 
-### Generate Schema from sample XML*
+### Generate Schema from sample XML
 
 > Make sure that you run *InstallWFX.vbs* once on each developer machine
 
