@@ -75,3 +75,45 @@ OL:20;60
 13. Submit a FF order through the new Receive Location. See that you get an *XML* document in your *Send Port*
 
 [Back to top](#table-of-content)
+
+
+## Debatch
+
+```xml
+
+<Batch xmlns="http://dti.dk">
+<LoanApp xmlns="http://firma">
+	<ID>1004</ID>
+	<Customer>
+		<Name>Morten</Name>
+	</Customer>
+	<Type>Quick</Type>
+</LoanApp>
+<LoanApp xmlns="http://firma">
+	<ID>1004</ID>
+	<Customer>
+		<Name>Morten</Name>
+	</Customer>
+	<Type>Quick</Type>
+</LoanApp>
+<LoanApp xmlns="http://firma">
+	<ID>1004</ID>
+	<Customer>
+		<Name>Morten</Name>
+	</Customer>
+	<Type>Quick</Type>
+</LoanApp>
+</Batch>
+
+```
+
+1. Make a new Project (Kursus.Debatch) and do what is needed!!!
+2. Make a new Schema with root element: Batch and namespace http://dti.dk
+3. set Envelope to true
+4. Set Body X-Path to Batch
+5. Deploy Schema
+6. Make sure that the actual messages inside the Batch message is valid messages according to your schema(s)
+7. Submit the batch and verify that several messages are send to your Send Port
+8. Make one of the messages invalid (change the namespace)
+9. Submit again
+10. Verify that the whole batch is 
