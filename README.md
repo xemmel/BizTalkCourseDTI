@@ -44,6 +44,9 @@ get-service -name "BTS*" | restart-service
 - What are the children delimited by?
 - Is it *infix* (a,b,c) or *postfix* (a,b,c,)
 
+Also if a *Tag Identifier* is present it needs to be specified
+
+
 ### Sample
 
 ```
@@ -125,6 +128,44 @@ OL:20;60
 12. Submit again and verify that you now get two messages out and one suspended message
 
 [Back to top](#table-of-content)
+
+## Orchestrations
+
+1. Create new Project (Kursus.Orc)
+2. Create new Schema
+
+```xml
+<aa:LoanApp xmlns:aa="orc">
+	<ID>10</ID>
+	<Customer>Morten</Customer>
+	<Amount>1000</Amount>
+	<Status>New</Status>
+</aa:LoanApp>
+
+```
+
+3. Create new Orchestration (ProcessLoanApp)
+4. Under *Orchestration View* create new Message (msgLoanApp)
+5. Select Schema as *Message Type*
+6. Create new Receive Shape
+7. Set Message = msgLoanApp
+8. Right click on Port surface select *New Configured Port* (LPort_ReceiveLoanApp)
+9. Set *Port Type name* to pt_LoanApp 
+10. Next, next, finish
+11. Drag the green arrow to the shape
+12. Set *Activate* on Receive Shape to True
+13. Test that your Project can build
+14. Create an Expression Shape and insert:
+
+```powershell
+System.Diagnostics.EventLog.WriteEntry("TheOrc","Hello World!");
+
+```
+
+15. Deploy
+16. Start your Orchestration (Remember to bind it -> Fill in the blanks)
+17. Submit a LoanApp and see that your Orc is writing to the Event Log!
+
 
 ## Notes
 
@@ -303,3 +344,15 @@ Right click on BizTalk Project (VS)
 
 Add Generated Items>Generate Schemas>Well Formed XML 
 
+### BizTalk message type
+
+Namespace#Root element
+
+example
+
+> http://dti.dk/schemas/v10#Order
+
+
+
+
+ Get-Service -Name "BTS*" | Out-GridView -PassThru | restart-service
