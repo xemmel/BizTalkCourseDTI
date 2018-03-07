@@ -7,7 +7,7 @@
 7. [Flat Files](#flat-files)
 8. [Debatch](#debatch)
 9. [Notes](#notes)
-10.[Orchestrations](#orchestrations)
+10. [Orchestrations](#orchestrations)
 
 ## Powershell Restart BizTalk
 
