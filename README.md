@@ -151,4 +151,64 @@ In this example both Order and ID gets the namespace applied
 
 In this example only Order is given the namespace applied
 
+#### Examples
+
+1.
+
+```xml
+
+<Order xmlns="http">
+	<ID>14</ID>
+	<Desc>Morten</Desc>
+</Order>
+
+```
+
+2.
+```xml
+
+<aa:Order xmlns:aa="http">
+	<ID>14</ID>
+	<Desc>Morten</Desc>
+</aa:Order>
+
+
+```
+
+3.
+```xml
+
+<aa:Order xmlns:aa="http">
+	<aa:ID>14</aa:ID>
+	<aa:Desc>Morten</aa:Desc>
+</aa:Order>
+
+
+```
+
+4.
+```xml
+
+<Order xmlns="http">
+	<ID xmlns="">14</ID>
+	<Desc xmlns="">Morten</Desc>
+</Order>
+
+```
+
+
+5. 
+
+```xml
+<aa:Order xmlns:aa="http" xmlns:bb="whatever">
+	<aa:ID>14</aa:ID>
+	<aa:Desc>Morten</aa:Desc>
+</aa:Order>
+
+```
+
+
+> Document 1, 3 and 5 are identical
+> Document 2 and 4 are identical
+
 [Back to top](#table-of-content)
