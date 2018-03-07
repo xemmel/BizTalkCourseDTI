@@ -5,6 +5,7 @@
 5. [Promotion](#promotion)
 6. [Pipeline](#pipeline)
 7. [Flat Files](#flat-files)
+8. [Debatch](#debatch)
 
 ## Powershell Restart BizTalk
 
@@ -116,4 +117,8 @@ OL:20;60
 7. Submit the batch and verify that several messages are send to your Send Port
 8. Make one of the messages invalid (change the namespace)
 9. Submit again
-10. Verify that the whole batch is 
+10. Verify that the whole batch is suspended
+11. Change the Receive Pipeline properties on the *Receive Location* (RecoverableInterchangeProcessing = True)
+12. Submit again and verify that you now get two messages out and one suspended message
+
+[Back to top](#table-of-content)
