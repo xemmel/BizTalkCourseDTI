@@ -204,6 +204,229 @@ More stuff:
 
 [Back to top](#table-of-content)
 
+## Custom Pipeline Components
+
+
+References:
+
+
+- Microsoft.BizTalk.Pipeline
+- Microsoft.XLANGs.BaseTypes
+- System.Drawing
+
+### Code examples
+
+```csharp
+
+using Microsoft.BizTalk.Component.Interop;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.BizTalk.Message.Interop;
+using System.Collections;
+using System.Reflection;
+using Kursus.PipelineComponents.Helpers;
+
+namespace Kursus.PipelineComponents
+{
+    [System.Runtime.InteropServices.Guid("8dc0ddd4-56ca-443f-af56-f0a28d20301f")]
+    [ComponentCategory(CategoryTypes.CATID_PipelineComponent)]
+    [ComponentCategory(CategoryTypes.CATID_Any)]
+    public class AppendOrRemoveCRLF : Microsoft.BizTalk.Component.Interop.IComponent,
+      IBaseComponent,
+      IPersistPropertyBag,
+      IComponentUI
+    {
+        private System.Resources.ResourceManager resourceManager = new System.Resources.ResourceManager("Vertica.BizTalk.PipelineComponents", Assembly.GetExecutingAssembly());
+        protected System.Resources.ResourceManager getRS()
+        {
+            return resourceManager;
+        }
+
+        //Properties
+        public bool Append { get; set; }
+
+
+
+        public string Description
+        {
+            get
+            {
+                return "This is a cool component";
+            }
+        }
+
+        public IntPtr Icon
+        {
+            get { return ((System.Drawing.Bitmap)(getRS().GetObject("COMPONENTICON", System.Globalization.CultureInfo.InvariantCulture))).GetHicon(); ; }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "AppendOrRemoveCRLF";
+            }
+        }
+
+        public string Version
+        {
+            get
+            {
+                return "1.0.0.0";
+            }
+        }
+
+        public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
+        {
+            //Retrieve the message (stream) as a string.
+            string messageBody = StreamHelper.MessageToString(pInMsg);
+            string resultMessageBody = messageBody;
+            //Do the stuff!!!
+            if (Append)
+            {
+                System.Diagnostics.EventLog.WriteEntry("PipeComp", "Append");
+                resultMessageBody = CRLFHelper.AppendCRLF(messageBody);
+            }
+            else
+            {
+                System.Diagnostics.EventLog.WriteEntry("PipeComp", "Remove");
+                resultMessageBody = CRLFHelper.RemoveLastCRLF(messageBody);
+            }
+            StreamHelper.StringToMessage(resultMessageBody, ref pInMsg);
+            return pInMsg;
+        }
+
+        public void GetClassID(out Guid classID)
+        {
+            classID = new Guid("8dc0ddd4-56ca-443f-af56-f0a28d20301f");
+        }
+
+        public void InitNew()
+        {
+            
+        }
+
+        public void Load(IPropertyBag propertyBag, int errorLog)
+        {
+            //
+            try
+            {
+                object val = null;
+                propertyBag.Read("Append", out val, 0);
+                if (val != null)
+                    Append = (bool)val;
+            }
+            catch (ArgumentException)
+            {
+
+                return;
+            }
+
+
+
+        }
+
+        public void Save(IPropertyBag propertyBag, bool clearDirty, bool saveAllProperties)
+        {
+            //
+            propertyBag.Write("Append", (object)Append);
+        }
+
+        public IEnumerator Validate(object projectSystem)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+
+
+
+```
+
+
+```csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kursus.PipelineComponents.Helpers
+{
+    public class CRLFHelper
+    {
+        public static string RemoveLastCRLF(string input)
+        {
+            input = input.TrimEnd(new char[] { ' ', '\r', '\n' });
+            return input;
+        }
+
+        public static string AppendCRLF(string input)
+        {
+            input = RemoveLastCRLF(input);
+            input += "\r\n";
+            return input;
+        }
+    }
+}
+
+
+```
+
+
+```csharp
+
+using Microsoft.BizTalk.Message.Interop;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kursus.PipelineComponents.Helpers
+{
+    public class StreamHelper
+    {
+        public static  string MessageToString(IBaseMessage pInMsg)
+        {
+
+            IBaseMessagePart bodyPart = pInMsg.BodyPart;
+            if (bodyPart != null)
+            {
+                Stream originalStrm;
+                originalStrm = null;
+                originalStrm = pInMsg.BodyPart.GetOriginalDataStream();
+                System.IO.StreamReader reader = new StreamReader(originalStrm, System.Text.Encoding.UTF8);
+
+                return reader.ReadToEnd();
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public static void StringToMessage(string s, ref IBaseMessage msg)
+        {
+            MemoryStream msOut = new MemoryStream();
+            byte[] bts = System.Text.Encoding.UTF8.GetBytes(s);
+            msOut.Seek(0, SeekOrigin.Begin);
+            msOut.Write(bts, 0, bts.Length);
+            msOut.Position = 0;
+            msg.BodyPart.Data = msOut;
+            long i = msg.BodyPart.Data.Length; //Crazy hack
+        }
+    }
+}
+
+
+```
+
 ## Services
 
 ### Exposing a Schema as a SOAP WebService
