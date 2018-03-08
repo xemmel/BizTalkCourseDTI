@@ -9,6 +9,7 @@
 9. [Notes](#notes)
 10. [Orchestrations](#orchestrations)
 
+
 ## Powershell Restart BizTalk
 
 ```powershell
@@ -26,6 +27,21 @@ get-service -name "BTS*" | restart-service
     <Amount>1000</Amount>
 </LoanApp>
 ```
+
+#### Tracked promoted properties
+
+1. Select the *Property Schema* under *Schemas*
+2. Right-click and choose **Properties** and choose *Tracking*
+3. Select the desired properties
+4. Make sure that *Tracked Message Properties* is selected on the relevant Port(s)
+
+
+Tracking:
+1. In the **Group Hub** select *Tracked Message Events*
+2. Select the *Schema name* (This is **NOT** the Property Schema but the actual schema we are tracking)
+3. Select the desired Tracked Property and insert the value needed for tracking
+
+
 
 [Back to top](#table-of-content)
 
@@ -159,6 +175,7 @@ OL:20;60
 13. Test that your Project can build
 14. Create an Expression Shape and insert:
 
+
 ```powershell
 System.Diagnostics.EventLog.WriteEntry("TheOrc","Hello World!");
 
@@ -167,6 +184,23 @@ System.Diagnostics.EventLog.WriteEntry("TheOrc","Hello World!");
 15. Deploy
 16. Start your Orchestration (Remember to bind it -> Fill in the blanks)
 17. Submit a LoanApp and see that your Orc is writing to the Event Log!
+
+
+
+More stuff:
+
+1. Create two folders *ERP* and *Manual*
+2. Create two file Send Ports one for each folders
+3. Make *Amount* a *Distinguished field* and set the type to *xs:decimal*
+4. build the project
+5. Create a **Decide** shape under the **Expression** shape
+6. Insert the rule msgLoanApp.Amount < 1000 into the left side
+7. Create two Logical Send Ports one for ERP and one for Manual*
+8. Insert one Send Shape into each Decide branch and connect them (remember to choose msgLoanApp as *Message* on each *Send* shape
+
+
+
+
 
 [Back to top](#table-of-content)
 
