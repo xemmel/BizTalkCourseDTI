@@ -204,6 +204,48 @@ More stuff:
 
 [Back to top](#table-of-content)
 
+## Services
+
+### Exposing a Schema as a SOAP WebService
+
+1. Open *BizTalk WCF Service Publishing Wizard*
+2. Choose BasicHttp for SOAP1.0 (WebHttp for REST)
+3. Enable on-premise.....
+4. Choose *Publish Schema as WCF Service*
+5. Delete *Operation1* if one-way is needed and add new one-way method
+6. Right-Click *Request* and select schema type
+7. Find the compiled .dll containing the schema and choose the appropriate schema
+8. Find an appropriate namespace or leave it
+9. Allow anonymous
+10. Click Finish
+
+11. In IIS refresh *Default Web Site*
+12. Browse the created .svc file
+13. Create an **Application Pool* with credentials that are member of the *Windows Group* specified under the **Isolated Host**
+14. Use the newly created Application Pool with your Application
+15. Create the appropriate *receive location* and enable it
+16. Once you are able to browse your service you're finished!
+
+
+
+### Consuming a Web Service
+
+1. Create a new BizTalk project 
+2. Add>Add generated Items>Consume WCF Service
+3. Use the following URL: http://xemmel.com/webservices/postnumber.asmx 
+4. Click Get
+5. Schema should now be generated.
+6. Create an instance of GetPostNumber (set root reference). Save the sample as an .XML file
+7. Create new Receive Port (A) with a FILE receive location
+8. Create a **Solicit-Response** Send Port (B) using the WCF-BasicHttp Adapter. Set the address as above and find the *SOAP Action Header* in the generated binding file (Subscribe to: BTS.ReceivePortName = A)
+9. Create a new FILE Send Port (C) subscribe to BTS.SPName = B
+10. Start everything and submit your sample with a city!! test that it works!!
+
+
+
+
+
+
 ## Notes
 
 ### Namespaces
