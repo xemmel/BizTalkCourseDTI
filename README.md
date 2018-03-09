@@ -715,6 +715,43 @@ example
  13. Test that a FF with Type = Special is sent to SP2
  14. Think about when the Type is promoted in this situation?
  
+ 15. Create an envelope-schema (remember you only need the root element and nothing else) for the following:
  
+ ```xml
+ 
+ <ns1:Batch xmlns:ns1="http://finalDemo/Batch">
+  <ns0:Order xmlns:ns0="http://finaldemo">
+	<ID>100</ID>
+	<Customer>McD</Customer>
+	<Type>Normal|Special</Type>
+	<Line no="1">
+		<ItemNo>10r40</ItemNo>
+		<Qty>40.5</Qty>
+	</Line>
+	<Line no="2">
+		<ItemNo>10rt</ItemNo>
+		<Qty>400</Qty>
+		<Desc>Not important</Desc>
+	</Line>
+</ns0:Order>
+ <ns0:Order xmlns:ns0="http://finaldemo">
+	<ID>100</ID>
+	<Customer>McD</Customer>
+	<Type>Normal|Special</Type>
+	<Line no="1">
+		<ItemNo>10r40</ItemNo>
+		<Qty>40.5</Qty>
+	</Line>
+	<Line no="2">
+		<ItemNo>10rt</ItemNo>
+		<Qty>400</Qty>
+		<Desc>Not important</Desc>
+	</Line>
+</ns0:Order>
+ </ns1:Batch>
+ 
+ ```
+ 
+ 16. Deploy the Schema and test that you can debatch the document
  
  [Back to top](#table-of-content)
