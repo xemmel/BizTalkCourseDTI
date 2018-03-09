@@ -691,7 +691,23 @@ example
  2. Create a matching schema make sure that the document validates
  3. Promote Type
  4. Make a flow (1 Receive Port, 2 Send Ports. SP1 subscribes to everything from the Receive Port. SP2 subscribes ONLY to Type = Special)
- 5. Test and place your nametag on your screen
+ 5. Test and place your name tag on your screen
+ 
+ 
+ 6. Create a Flat file schema that matches the following sample.
+ 
+ ```
+ 100;McD;Normal
+ OL:1;10r40;40.5
+ OL:2;10rt;400
+ 
+ 
+ ```
+ 
+ 7. Test and deploy the Schema.
+ 8. Create a new Receive Pipeline, use the FFDisassembler and choose the FFSchema just created.
+ 9. Deploy the Pipeline
+ 10. Create a new Receive Location, *.txt use the newly created Pipeline and test that you get XML out in the Send Port when submitting the FF document
  
  
  
