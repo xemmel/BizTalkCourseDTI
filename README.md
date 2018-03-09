@@ -710,6 +710,11 @@ example
  10. Create a new Receive Location, *.txt use the newly created Pipeline and test that you get XML out in the Send Port when submitting the FF document
  
  
+ 11. Create a new map (FFOrder_to_IOrder) map from the FFSchema to the first created schema.
+ 12. Deploy the map and apply it to the Receive Port
+ 13. Test that a FF with Type = Special is sent to SP2
+ 14. Think about when the Type is promoted in this situation?
+ 
  
  
  [Back to top](#table-of-content)
