@@ -8,7 +8,8 @@
 8. [Debatch](#debatch)
 9. [Notes](#notes)
 10. [Orchestrations](#orchestrations)
-
+11. [Custom Pipeline Components](#custom-pipeline-components)
+12. [Final Test](#final-test)
 
 ## Powershell Restart BizTalk
 
@@ -427,6 +428,8 @@ namespace Kursus.PipelineComponents.Helpers
 
 ```
 
+[Back to top](#table-of-content)
+
 ## Services
 
 ### Exposing a Schema as a SOAP WebService
@@ -467,7 +470,7 @@ namespace Kursus.PipelineComponents.Helpers
 
 
 
-
+[Back to top](#table-of-content)
 
 ## Notes
 
@@ -656,5 +659,41 @@ example
 
 
 
-
+```powershell 
  Get-Service -Name "BTS*" | Out-GridView -PassThru | restart-service
+ ``` 
+ 
+ [Back to top](#table-of-content)
+ 
+ ## Final test
+ 
+ 
+ ```xml
+ 
+ <ns0:Order xmlns:ns0="http://finaldemo">
+	<ID>100</ID>
+	<Customer>McD</Customer>
+	<Type>Normal|Special</Type>
+	<Line no="1">
+		<ItemNo>10r40</ItemNo>
+		<Qty>40.5</Qty>
+	</Line>
+	<Line no="2">
+		<ItemNo>10rt</ItemNo>
+		<Qty>400</Qty>
+		<Desc>Not important</Desc>
+	</Line>
+</ns0:Order>
+ 
+ ```
+ 
+ 1. Create an instance of the document above
+ 2. Create a matching schema make sure that the document validates
+ 3. Promote Type
+ 4. Make a flow (1 Receive Port, 2 Send Ports. SP1 subscribes to everything from the Receive Port. SP2 subscribes ONLY to Type = Special)
+ 5. Test and place your nametag on your screen
+ 
+ 
+ 
+ 
+ [Back to top](#table-of-content)
